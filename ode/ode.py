@@ -5,7 +5,7 @@ from scipy.integrate import solve_ivp
 from scipy.optimize import fsolve
 
 class second_order_ode:
-    def __init__(self, a: any, b: any, c: any, y0: list) -> None:
+    def __init__(self, a, b, c, y0: list) -> None:
         self.n = 100
         self.dt = 1/self.n
         self.t_int = [0, 10]
@@ -57,7 +57,7 @@ class second_order_ode:
 
 class first_order_system:
     
-    def __init__(self, equation_1: any, equation_2: any, y0: list) -> None:
+    def __init__(self, equation_1, equation_2, y0: list) -> None:
         self.n = 100
         self.dt = 1/self.n
         self.t_int = [0, 10]
