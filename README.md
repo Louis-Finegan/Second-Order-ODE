@@ -32,5 +32,7 @@ $F$ and $G$ are defined in `first_order_system.ipynb`.
 
 2. `scipy` using the `integrate` module 
 
+3. `scipy` using the `optimize` module 
+
 3. `matplotlib` using the `pyplot` module
 
