@@ -5,10 +5,10 @@ from scipy.integrate import solve_ivp
 from scipy.optimize import fsolve
 
 class second_order_ode:
-    def __init__(self, a, b, c, y0: list) -> None:
+    def __init__(self, a, b, c, y0: list, t_int: list):
         self.n = 100
         self.dt = 1/self.n
-        self.t_int = [0, 10]
+        self.t_int = t_int
         self.a = a
         self.b = b
         self.c = c
@@ -51,16 +51,16 @@ class second_order_ode:
         def eq_equation(y):
             return [y[1], - self.a*y[1] - self.b*y[0]]
 
-        equilibrium = fsolve(eq_equation, [0.0, 0.0])
+        equilibrium = fsolve(eq_equation, [1.0, 1.0])
 
         return equilibrium
 
-class first_order_system:
+class first_order_system_2vars:
     
-    def __init__(self, equation_1, equation_2, y0: list) -> None:
+    def __init__(self, equation_1, equation_2, y0: list, t_int: list):
         self.n = 100
         self.dt = 1/self.n
-        self.t_int = [0, 10]
+        self.t_int = t_int
         self.equation_1 = equation_1
         self.equation_2 = equation_2
         self.y0 = y0
@@ -86,5 +86,41 @@ class first_order_system:
             return [self.equation_1(y[0], y[1]), self.equation_2(y[0], y[1])]
 
         equilibrium = fsolve(eq_equation, [0.0, 0.0])
+
+        return equilibrium
+
+
+class First_order_systems_3vars:
+
+    def __init__(self, equation_1, equation_2, equation_3, y0: list, t_int: list):
+        self.n = 100
+        self.dt = 1/self.n
+        self.t_int = t_int
+        self.equation_1 = equation_1
+        self.equation_2 = equation_2
+        self.equation_3 = equation_3
+        self.y0 = y0
+
+    def solve_system(self):
+        def equation(t, y):
+            x, y, z = y
+            dydt = [self.equation_1(x, y, z), self.equation_2(x, y, z), self.equation_3(x, y, z)]
+
+            return dydt
+        
+        solution = solve_ivp(lambda t, y: equation(t, y), 
+                            self.t_int, 
+                            self.y0, 
+                            t_eval=np.arange(self.t_int[0], 
+                                            self.t_int[1], 
+                                            self.dt))
+        
+        return solution.y[0], solution.y[1], solution.y[2]
+    
+    def equilibrium(self):
+        def eq_equation(y):
+            return [self.equation_1(y[0], y[1], y[2]), self.equation_2(y[0], y[1], y[2]), self.equation_3(y[0], y[1], y[2])]
+
+        equilibrium = fsolve(eq_equation, [1.0, 1.0, 1.0])
 
         return equilibrium
