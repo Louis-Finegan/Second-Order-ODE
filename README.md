@@ -10,7 +10,7 @@ With initial conditions $y(0) = y_0$ and $y^\prime(0) = y^\prime_0$.
 
 Coefficients are functions of $t$ and are defined in `second_order.ipynb`
 
-`second_order_ode` module in the `ode.py` file and is imported into `second_order.ipynb`.
+`second_order_ode` module in the `solve.py` file in the `ode` directory, and is imported into `second_order.ipynb`.
 
 ## Solves a First Order System of ODEs
 
@@ -24,7 +24,9 @@ With initial conditions $x(0) = x_0$ and $y(0) = y_0$.
 
 $F$ and $G$ are defined in `first_order_system.ipynb`.
 
-`first_order_system_ode` module in the `ode.py` file and is imported into `first_order_system.ipynb`.
+`first_order_system_2vars` module in the `solve.py` file in the `ode` directory, and is imported into `first_order_system.ipynb`.
+
+Then for 3 variable systems, use the module `first_order_system_3vars`.
  
 ## Required packages and libaries
 
