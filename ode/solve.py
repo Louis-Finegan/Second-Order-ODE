@@ -4,6 +4,7 @@ import numpy as np
 from scipy.integrate import solve_ivp
 from scipy.optimize import fsolve
 
+# Second order Ordinary Differential Equation
 class second_order_ode:
     def __init__(self, a, b, c, y0: list, t_int: list):
         self.n = 100
@@ -14,8 +15,8 @@ class second_order_ode:
         self.c = c
         self.y0 = y0
 
-    # used `solve_ivp()` to solve second order ode as a system of odes.
-    def solve_ode(self) -> tuple:
+    # Solve second order ode as a system of odes.
+    def solve_ode(self):
         def equation(t, y):
             y, yprime = y
             dydt = [yprime, - self.a(t)*yprime - self.b(t)*y + self.c(t)]
@@ -30,7 +31,8 @@ class second_order_ode:
 
         return solution.y[0], solution.y[1]
 
-    def eigen_values(self) -> tuple:
+    # Calculates eigen values
+    def eigen_values(self):
         if self.a**2 - 4*self.b < 0:
             m_1 = complex(-self.a/2, + np.sqrt(- self.a**2 + 4*self.b)/2)
             m_2 = complex(-self.a/2, - np.sqrt(- self.a**2 + 4*self.b)/2)
@@ -45,7 +47,7 @@ class second_order_ode:
         
         return (m_1, m_2)
 
-    
+    # Calculates equilibrium point 
     def equilibrium(self):
         
         def eq_equation(y):
@@ -55,6 +57,7 @@ class second_order_ode:
 
         return equilibrium
 
+# First order Systems of equations with 2 variables
 class first_order_system_2vars:
     
     def __init__(self, equation_1, equation_2, y0: list, t_int: list):
@@ -65,6 +68,7 @@ class first_order_system_2vars:
         self.equation_2 = equation_2
         self.y0 = y0
 
+    # Solves the system
     def solve_system(self):
         def equation(t, y):
             x, y = y
@@ -80,6 +84,7 @@ class first_order_system_2vars:
 
         return solution.y[0], solution.y[1]
 
+    # Calculates equilibrim
     def equilibrium(self):
         
         def eq_equation(y):
@@ -90,6 +95,7 @@ class first_order_system_2vars:
         return equilibrium
 
 
+# First order Systems of equations with 3 variables
 class First_order_systems_3vars:
 
     def __init__(self, equation_1, equation_2, equation_3, y0: list, t_int: list):
@@ -101,6 +107,7 @@ class First_order_systems_3vars:
         self.equation_3 = equation_3
         self.y0 = y0
 
+    # Solves the system
     def solve_system(self):
         def equation(t, y):
             x, y, z = y
@@ -117,6 +124,7 @@ class First_order_systems_3vars:
         
         return solution.y[0], solution.y[1], solution.y[2]
     
+    # Calculates equilibrim
     def equilibrium(self):
         def eq_equation(y):
             return [self.equation_1(y[0], y[1], y[2]), self.equation_2(y[0], y[1], y[2]), self.equation_3(y[0], y[1], y[2])]
